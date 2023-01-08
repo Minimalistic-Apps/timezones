@@ -1,7 +1,7 @@
 > **👷👷👷 WORK IN PROGRESS 👷👷👷**
 
 # Timezones
-`Minimalistic` | `Free` | `Open Source` | `Private` | `Bitcoin` | `No adds` | `No trackers`
+`Minimalistic` | `Free` | `Open Source` | `Private` | `No adds` | `No trackers`
 | `No Google`
 
 The idea of this app is to be FOSS alternative to the [worldtimebuddy.com](https://www.worldtimebuddy.com/mobile-app)
