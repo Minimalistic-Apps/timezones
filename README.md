@@ -8,5 +8,5 @@ The idea of this app is to be FOSS alternative to the [worldtimebuddy.com](https
 
 
 ## Research
-Insporation can be taken from (https://www.worldtimebuddy.com/mobile-app):
+Inpiration can be taken from (https://www.worldtimebuddy.com/mobile-app):
 ![image](https://user-images.githubusercontent.com/89867413/211193192-759ed4d4-6338-4157-ba00-24f3529cab81.png)
