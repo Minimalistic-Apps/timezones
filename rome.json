@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/rome/configuration_schema.json",
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "lineWidth": 119
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": {
+        "useShorthandArrayType": "off",
+        "noNegationElse": "off",
+        "useFragmentSyntax": "error"
+      },
+      "correctness": {
+        "useValidForDirection": "error",
+        "noConstAssign": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "error",
+        "noArrayIndexKey": "off"
+      },
+      "nursery": {
+        "useExhaustiveDependencies": "error",
+        "useCamelCase": "error",
+        "noInvalidConstructorSuper": "error"
+      }
+    }
+  }
+}

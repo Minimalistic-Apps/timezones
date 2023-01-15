@@ -1,22 +1,27 @@
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
 export function usePersistedState<T>(key: string, defaultValue: T) {
-	const { getItem, setItem } = useAsyncStorage(key);
+  const { getItem, setItem } = useAsyncStorage(key);
 
-	const [state, setState] = useState<T>(defaultValue)
-	
-	useEffect(() => {
-		(async () => {
-			const data = await getItem();
-	
-			setState((data ? JSON.parse(data): undefined) ?? defaultValue)
-		})()
-	}, [key]);
+  const [state, setState] = useState<T>(defaultValue);
 
-	useEffect(() => {
-		(async () => await setItem(JSON.stringify(state)))();
-	}, [key, state]);
+  // rome-ignore lint/nursery/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    (async () => {
+      const data = await getItem();
+      console.log("get", data);
+      setState((data ? JSON.parse(data) : undefined) ?? defaultValue);
+    })();
+  }, [key]);
 
-	return [state, setState] as [T, typeof setState];
+  // rome-ignore lint/nursery/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    (async () => {
+      console.log("set", state);
+      await setItem(JSON.stringify(state));
+    })();
+  }, [key, state]);
+
+  return [state, setState] as [T, typeof setState];
 }

@@ -6,14 +6,20 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "check_types": "tsc --noEmit --project .",
+    "format": "rome format ./src",
+    "format-fix": "rome format ./src --write",
+    "lint-fix": "npx rome check ./src --apply-suggested",
+    "lint": "npx rome check ./src"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "@types/luxon": "^3.2.0",
+    "@vvo/tzdb": "^6.90.0",
     "luxon": "^3.2.1",
     "react": "18.1.0",
-    "react-native": "0.70.6"
+    "react-native": "0.70.6",
+    "react-native-select-dropdown": "^3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -31,6 +37,7 @@
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "0.72.3",
     "react-test-renderer": "18.1.0",
+    "rome": "^11.0.0",
     "typescript": "^4.8.3"
   },
   "jest": {

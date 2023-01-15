@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { Button, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
 import { DateTime } from "luxon";
 import { Colors } from "./src/Colors";
 import { TimezoneRow } from "./src/TimezoneRow";
 import { Layout } from "./src/Layout";
 import { usePersistedState } from "./src/usePersistedState";
-// import SelectDropdown from "react-native-select-dropdown";
-
-const availableTimezones = (Intl as any).supportedValuesOf("timeZone");
+import SelectDropdown from "react-native-select-dropdown";
+import { luxonValidTimezones } from "./src/getValidTimezones";
 
 const App = () => {
   const backgroundStyle = { backgroundColor: Colors.backgroundColor() };
   const [selectedTimezone, setSelectedTimezone] = useState<string | null>(null);
+  const [timezoneQuery, setTimezoneQuery] = useState<string>("");
   const date = DateTime.local();
 
   const [timezones, setTimezones] = usePersistedState("timezones", ["Europe/Prague", "America/New_York"]);
@@ -54,13 +54,22 @@ const App = () => {
           </ScrollView>
         </View>
       </ScrollView>
-      <View>
-        {/* <SelectDropdown
-					data={availableTimezones}
-					onSelect={setSelectedTimezone}
-					onChangeSearchInputText={() => undefined}
-				/> */}
-        <Button title="add" />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <SelectDropdown
+          search={true}
+          data={luxonValidTimezones.filter(
+            (tz) => tz.toLowerCase().includes(timezoneQuery.toLowerCase()) && !timezones.includes(tz),
+          )}
+          onSelect={(value) => {
+            setTimezones([...new Set([...timezones, value])]);
+          }}
+          onChangeSearchInputText={setTimezoneQuery}
+        />
       </View>
     </SafeAreaView>
   );
