@@ -4,13 +4,17 @@ import { DateTime } from "luxon";
 import { Colors } from "./src/Colors";
 import { TimezoneRow } from "./src/TimezoneRow";
 import { Layout } from "./src/Layout";
+import { usePersistedState } from "./src/usePersistedState";
 
 const App = () => {
 	const backgroundStyle = { backgroundColor: Colors.backgroundColor() };
 
 	const date = DateTime.local();
 
-	const timezones = ["Europe/Prague", "America/New_York"];
+	const [timezones, setTimezones] = usePersistedState("timezones", [
+		"Europe/Prague",
+		"America/New_York",
+	]);
 
 	return (
 		<SafeAreaView style={backgroundStyle}>
