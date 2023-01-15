@@ -1,12 +1,22 @@
-import React from "react";
-import { useEffect } from "react";
+import { useState , useEffect} from "react";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
-export function usePersistedState(key: string, defaultValue: string) {
-	const [state, setState] = React.useState(
-		() => JSON.parse(localStorage.getItem(key)) || defaultValue,
-	);
+export function usePersistedState<T>(key: string, defaultValue: T) {
+	const { getItem, setItem } = useAsyncStorage(key);
+
+	const [state, setState] = useState<T>(defaultValue)
+	
 	useEffect(() => {
-		localStorage.setItem(key, JSON.stringify(state));
+		(async () => {
+			const data = await getItem();
+	
+			setState((data ? JSON.parse(data): undefined) ?? defaultValue)
+		})()
+	}, [key]);
+
+	useEffect(() => {
+		(async () => await setItem(JSON.stringify(state)))();
 	}, [key, state]);
-	return [state, setState];
+
+	return [state, setState] as [T, typeof setState];
 }
