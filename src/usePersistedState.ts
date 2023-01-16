@@ -10,7 +10,6 @@ export function usePersistedState<T>(key: string, defaultValue: T) {
   useEffect(() => {
     (async () => {
       const data = await getItem();
-      console.log("get", data);
       setState((data ? JSON.parse(data) : undefined) ?? defaultValue);
     })();
   }, [key]);
@@ -18,7 +17,6 @@ export function usePersistedState<T>(key: string, defaultValue: T) {
   // rome-ignore lint/nursery/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     (async () => {
-      console.log("set", state);
       await setItem(JSON.stringify(state));
     })();
   }, [key, state]);
