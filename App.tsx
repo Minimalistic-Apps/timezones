@@ -65,13 +65,10 @@ const App = () => {
             </ScrollView>
           </View>
         </ScrollView>
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
+        <View style={{ flexDirection: "row" }}>
           <SelectDropdown
             buttonStyle={{ width: "100%", borderRadius: 10 }}
+            rowStyle={{ alignItems: "flex-start", justifyContent: "flex-start" }}
             search={true}
             data={availableTimezones}
             onSelect={(value) => {
