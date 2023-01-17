@@ -11,12 +11,12 @@ import { luxonValidTimezones } from "./src/getValidTimezones";
 const App = () => {
   const backgroundStyle = { backgroundColor: Colors.backgroundColor() };
   const [timezoneQuery, setTimezoneQuery] = useState<string>("");
-  const date = DateTime.local();
+  const date = DateTime.local({ locale: "en-GB" });
 
   const [timezones, setTimezones] = usePersistedState("timezones", ["Europe/Prague", "America/New_York"]);
 
-  const availableTimezones = luxonValidTimezones.filter(
-    (tz) => tz.toLowerCase().includes(timezoneQuery.toLowerCase()) && !timezones.includes(tz),
+  const availableTimezones = Array.from(luxonValidTimezones.values()).filter(
+    (tz) => tz.name.toLowerCase().includes(timezoneQuery.toLowerCase()) && !timezones.includes(tz.name),
   );
 
   return (
@@ -30,9 +30,11 @@ const App = () => {
               position: "absolute",
             }}
           >
-            {timezones.map((zone) => {
+            {timezones.map((zoneKey) => {
+              const zone =luxonValidTimezones.get(zoneKey)
+
               return (
-                <View style={{ flexDirection: "column" }} key={zone}>
+                <View style={{ flexDirection: "column" }} key={zoneKey}>
                   <View
                     style={{
                       position: "relative",
@@ -41,7 +43,9 @@ const App = () => {
                       paddingEnd: 4,
                     }}
                   >
-                    <Text>{zone}</Text>
+                    <Text>
+                      {zone?.name} | {zone?.abbreviation}
+                    </Text>
                   </View>
                   <View style={{ flexDirection: "row", height: Layout.TimezoneHight }} />
                 </View>
@@ -70,7 +74,7 @@ const App = () => {
             buttonStyle={{ width: "100%", borderRadius: 10 }}
             rowStyle={{ alignItems: "flex-start", justifyContent: "flex-start" }}
             search={true}
-            data={availableTimezones}
+            data={availableTimezones.map(tz => `${tz.name} (${tz.abbreviation})`)}
             onSelect={(value) => {
               setTimezones([...new Set([...timezones, value])]);
             }}

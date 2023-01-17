@@ -1,10 +1,7 @@
 import { DateTime } from "luxon";
-import { getTimeZones } from "@vvo/tzdb";
+import { RawTimeZone, rawTimeZones } from "@vvo/tzdb";
 
-export const luxonValidTimezones = [
-  ...new Set<string>(
-    getTimeZones()
-      .map((tz) => tz.name)
-      .filter((tz) => tz.includes("/") && DateTime.local().setZone(tz).isValid),
-  ),
-].sort((a, b) => (a < b ? -1 : 1));
+
+export const luxonValidTimezones = new Map<string, RawTimeZone>(
+    rawTimeZones.filter((tz) => DateTime.local().setZone(tz.name).isValid).map(tz => [tz.name, tz])
+  )
