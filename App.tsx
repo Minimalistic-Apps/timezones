@@ -9,6 +9,14 @@ import { luxonValidTimezones } from "./src/getValidTimezones";
 import { SelectTimezone } from "./src/SelectTimezone";
 import { SheetProvider } from "react-native-actions-sheet";
 
+/**
+ * TODO:
+ *
+ * 1. try some material design lib: https://callstack.github.io/react-native-paper/index.html
+ * 2. finish select box using action-sheet with scrolling and full-text search (https://rnas.vercel.app/guides/passingdata)
+ * 3. support date theme (use library that supports that)
+ */
+
 const App = () => {
   const backgroundStyle = { backgroundColor: Colors.backgroundColor() };
   const date = DateTime.local({ locale: "en-GB" });
