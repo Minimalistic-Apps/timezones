@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { SafeAreaView, useColorScheme, View } from "react-native";
-import { Colors } from "./src/Colors";
 import { usePersistedState } from "./src/usePersistedState";
 import { luxonValidTimezones } from "./src/getValidTimezones";
 import { AddTimezoneScreen } from "./src/AddTimezoneScreen";
-import { MD3LightTheme, MD3DarkTheme, Provider as PaperProvider, Text, Appbar } from "react-native-paper";
+import { MD3LightTheme, MD3DarkTheme, Provider as PaperProvider, Appbar, MD3Theme } from "react-native-paper";
 import { MainScreen } from "./src/MainScreen";
 
 const App = () => {
-  const backgroundStyle = { backgroundColor: Colors.backgroundColor() };
-
   const [showAdd, setShowAdd] = useState(false);
-
   const [timezones, setTimezones] = usePersistedState("timezones", ["Europe/Prague", "America/New_York"]);
 
   const availableTimezones = Array.from(luxonValidTimezones.values()).filter((tz) => !timezones.includes(tz.name));
@@ -19,35 +15,25 @@ const App = () => {
   const isDarkMode = useColorScheme() === "dark";
   const DefaultTheme = isDarkMode ? MD3DarkTheme : MD3LightTheme;
 
-  const theme = {
+  // Todo: consolidate colors (https://github.com/Minimalistic-Apps/price-converter/blob/master/app/src/main/java/com/minimalisticapps/priceconverter/presentation/ui/theme/Color.kt)
+  const theme: MD3Theme = {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
+      background: isDarkMode ? "#1e1e1e" : "#ffffff",
+      primary: isDarkMode ? "#087d89" : "#087d89",
+      secondary: isDarkMode ? "#50a03b" : "#3d8c31",
     },
   };
 
   return (
     <PaperProvider theme={theme}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView>
         <View style={{ flexDirection: "column", height: "100%" }}>
-          <Appbar.Header>
-            {showAdd ? (
-              <Appbar.BackAction
-                onPress={() => {
-                  setShowAdd(false);
-                }}
-              />
-            ) : null}
+          <Appbar.Header style={{ backgroundColor: theme.colors.primary }}>
+            {showAdd ? <Appbar.BackAction onPress={() => setShowAdd(false)} /> : null}
             <Appbar.Content title="Title" />
-            {showAdd ? null : (
-              <Appbar.Action
-                icon="plus"
-                onPress={() => {
-                  setShowAdd(true);
-                }}
-                style={{ backgroundColor: "red" }}
-              />
-            )}
+            {showAdd ? null : <Appbar.Action icon="plus" onPress={() => setShowAdd(true)} />}
           </Appbar.Header>
           {showAdd ? (
             <AddTimezoneScreen

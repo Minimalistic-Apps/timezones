@@ -1,8 +1,7 @@
 import { RawTimeZone } from "@vvo/tzdb";
 import { useState, useMemo } from "react";
 import { View, FlatList } from "react-native";
-import { Divider, Menu } from "react-native-paper";
-import { Colors } from "./Colors";
+import { Divider, Menu, Searchbar } from "react-native-paper";
 
 const ITEM_HEIGHT = 50;
 
@@ -31,8 +30,6 @@ export const AddTimezoneScreen = ({
     setQuery(text);
   };
 
-  const backgroundStyle = { backgroundColor: Colors.backgroundColor() };
-
   const renderItem = ({ item }: { item: RawTimeZone }) => (
     <View key={item.name}>
       <Menu.Item title={item.name} onPress={() => onSelect(item)} />
@@ -41,13 +38,18 @@ export const AddTimezoneScreen = ({
   );
 
   return (
-    <FlatList
-      data={filteredData}
-      renderItem={renderItem}
-      getItemLayout={getItemLayout}
-      initialNumToRender={20}
-      maxToRenderPerBatch={20}
-      windowSize={20}
-    />
+    <View style={{ flexDirection: "column", flexWrap: "wrap" }}>
+      <Searchbar placeholder="Search" onChangeText={onSearch} value={query} />
+
+      <FlatList
+        data={filteredData}
+        renderItem={renderItem}
+        getItemLayout={getItemLayout}
+        initialNumToRender={20}
+        maxToRenderPerBatch={20}
+        windowSize={40}
+        contentContainerStyle={{ paddingVertical: 16 }}
+      />
+    </View>
   );
 };

@@ -1,16 +1,14 @@
 import { DateTime } from "luxon";
 import { ScrollView, View, Text } from "react-native";
-import { Colors } from "./Colors";
 import { luxonValidTimezones } from "./getValidTimezones";
 import { Layout } from "./Layout";
 import { TimezoneRow } from "./TimezoneRow";
 
 export const MainScreen = ({ timezones, onDelete }: { timezones: string[]; onDelete: (value: string) => void }) => {
-  const backgroundStyle = { backgroundColor: Colors.backgroundColor() };
   const date = DateTime.local({ locale: "en-GB" });
 
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
+    <ScrollView contentInsetAdjustmentBehavior="automatic">
       <View
         style={{
           flexDirection: "column",
