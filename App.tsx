@@ -23,6 +23,7 @@ const App = () => {
       background: isDarkMode ? "#1e1e1e" : "#ffffff",
       primary: isDarkMode ? "#087d89" : "#087d89",
       secondary: isDarkMode ? "#50a03b" : "#3d8c31",
+      secondaryContainer: isDarkMode ? "#505050" : "#e3e3e3",
     },
   };
 
@@ -32,8 +33,8 @@ const App = () => {
         <View style={{ flexDirection: "column", height: "100%" }}>
           <Appbar.Header style={{ backgroundColor: theme.colors.primary }}>
             {showAdd ? <Appbar.BackAction onPress={() => setShowAdd(false)} /> : null}
-            <Appbar.Content title="Timezones" />
-            {showAdd ? null : <Appbar.Action icon="plus" onPress={() => setShowAdd(true)} />}
+            <Appbar.Content color="white" title="Timezones" />
+            {showAdd ? null : <Appbar.Action color="white" icon="plus" onPress={() => setShowAdd(true)} />}
           </Appbar.Header>
           {showAdd ? (
             <AddTimezoneScreen

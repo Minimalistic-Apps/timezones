@@ -32,7 +32,7 @@ export const HourBox = ({ hour, now }: { hour: number; now: boolean }) => {
         height: Layout.TimezoneHight,
         backgroundColor: getBackgroundColor(hour),
         borderWidth: 1,
-        borderColor: now ? Colors.highlight() : "auto",
+        borderColor: now ? Colors.highlight() : Colors.border(),
         textAlign: "center",
         padding: 2,
       }}

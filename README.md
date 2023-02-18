@@ -6,6 +6,11 @@
 
 The idea of this app is to be FOSS alternative to the [worldtimebuddy.com](https://www.worldtimebuddy.com/mobile-app)
 
+## Build and Sign APK
+- `cd android`
+- `./gradlew assembleRelease`
+
+- More info how to setup keys: https://reactnative.dev/docs/signed-apk-android#publishing-to-other-stores
 
 ## Research
 Inspiration for this app is the https://www.worldtimebuddy.com/mobile-app view:
