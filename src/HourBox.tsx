@@ -27,7 +27,7 @@ export const HourBox = ({ hour, now }: { hour: number; now: boolean }) => {
     <Text
       style={{
         fontSize: 36,
-        borderRadius: 10,
+        borderRadius: 0,
         width: Layout.TimezoneWidth,
         height: Layout.TimezoneHight,
         backgroundColor: getBackgroundColor(hour),

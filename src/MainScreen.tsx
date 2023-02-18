@@ -1,11 +1,13 @@
 import { DateTime } from "luxon";
 import { ScrollView, View, Text } from "react-native";
+import { Chip, useTheme } from "react-native-paper";
 import { luxonValidTimezones } from "./getValidTimezones";
 import { Layout } from "./Layout";
 import { TimezoneRow } from "./TimezoneRow";
 
 export const MainScreen = ({ timezones, onDelete }: { timezones: string[]; onDelete: (value: string) => void }) => {
   const date = DateTime.local({ locale: "en-GB" });
+  const theme = useTheme();
 
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -14,6 +16,7 @@ export const MainScreen = ({ timezones, onDelete }: { timezones: string[]; onDel
           flexDirection: "column",
           zIndex: 0,
           position: "absolute",
+          width: "100%",
         }}
       >
         {timezones.map((zoneKey) => {
@@ -23,15 +26,17 @@ export const MainScreen = ({ timezones, onDelete }: { timezones: string[]; onDel
             <View style={{ flexDirection: "column" }} key={zoneKey}>
               <View
                 style={{
+                  flexDirection: "row",
                   position: "relative",
                   height: Layout.TimezoneHeaderHight,
-                  paddingStart: 4,
-                  paddingEnd: 4,
                 }}
               >
-                <Text>
-                  {zone?.name} | {zone?.abbreviation}
-                </Text>
+                <Chip style={{ borderRadius: 0, borderWidth: 1, borderColor: theme.colors.background }}>
+                  <Text>{zone?.name}</Text>
+                </Chip>
+                <Chip style={{ borderRadius: 0, borderWidth: 1, borderColor: theme.colors.background }}>
+                  <Text>{zone?.abbreviation}</Text>
+                </Chip>
               </View>
               <View style={{ flexDirection: "row", height: Layout.TimezoneHight }} />
             </View>

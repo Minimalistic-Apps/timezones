@@ -32,13 +32,12 @@ const App = () => {
         <View style={{ flexDirection: "column", height: "100%" }}>
           <Appbar.Header style={{ backgroundColor: theme.colors.primary }}>
             {showAdd ? <Appbar.BackAction onPress={() => setShowAdd(false)} /> : null}
-            <Appbar.Content title="Title" />
+            <Appbar.Content title="Timezones" />
             {showAdd ? null : <Appbar.Action icon="plus" onPress={() => setShowAdd(true)} />}
           </Appbar.Header>
           {showAdd ? (
             <AddTimezoneScreen
               data={availableTimezones}
-              selected={null}
               onSelect={(value) => {
                 setTimezones([...new Set([...timezones, value.name])]);
                 setShowAdd(false);
