@@ -1,8 +1,9 @@
 import { DateTime } from "luxon";
-import { Pressable, View } from "react-native";
+import { Alert, Pressable, View } from "react-native";
 import { HourBox } from "./HourBox";
 import { Layout } from "./Layout";
 import { range } from "./range";
+import { useState } from "react";
 
 interface Props {
   currentDate: DateTime;
@@ -13,8 +14,25 @@ interface Props {
 export const TimezoneRow = ({ currentDate, zone, onDelete }: Props) => {
   const zonedCurrentDate = currentDate.setZone(zone);
 
+  const [showBox, setShowBox] = useState(false);
+
+  const showConfirmDialog = () => {
+    return Alert.alert("Are your sure?", "Are you sure you want to remove this timezone?", [
+      {
+        text: "Yes",
+        onPress: () => {
+          onDelete();
+          setShowBox(false);
+        },
+      },
+      {
+        text: "No",
+      },
+    ]);
+  };
+
   return (
-    <Pressable onLongPress={onDelete}>
+    <Pressable onLongPress={showConfirmDialog}>
       <View style={{ flexDirection: "column" }}>
         <View style={{ position: "relative", height: Layout.TimezoneHeaderHight }} />
         <View
