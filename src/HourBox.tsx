@@ -22,7 +22,12 @@ function getBackgroundColor(hour: number) {
   return Colors.night();
 }
 
-export const HourBox = ({ hour, now }: { hour: number; now: boolean }) => {
+interface HourBoxProps {
+  hour: number;
+  isCurrent: boolean;
+}
+
+export const HourBox = ({ hour, isCurrent }: HourBoxProps) => {
   return (
     <Text
       style={{
@@ -32,7 +37,7 @@ export const HourBox = ({ hour, now }: { hour: number; now: boolean }) => {
         height: Layout.TimezoneHight,
         backgroundColor: getBackgroundColor(hour),
         borderWidth: 1,
-        borderColor: now ? Colors.highlight() : Colors.border(),
+        borderColor: isCurrent ? Colors.highlight() : Colors.border(),
         textAlign: "center",
         padding: 2,
       }}

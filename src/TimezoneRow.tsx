@@ -5,13 +5,13 @@ import { Layout } from "./Layout";
 import { range } from "./range";
 
 interface Props {
-  date: DateTime;
+  currentDate: DateTime;
   zone: string;
   onDelete: () => void;
 }
 
-export const TimezoneRow = ({ date, zone, onDelete }: Props) => {
-  const zonedDate = date.setZone(zone);
+export const TimezoneRow = ({ currentDate, zone, onDelete }: Props) => {
+  const zonedCurrentDate = currentDate.setZone(zone);
 
   return (
     <Pressable onLongPress={onDelete}>
@@ -24,9 +24,11 @@ export const TimezoneRow = ({ date, zone, onDelete }: Props) => {
           }}
         >
           {range(-4, -4 + 24).map((i) => {
-            const hour = zonedDate.plus({ hours: i }).hour;
+            const hour = zonedCurrentDate.plus({ hours: i }).hour;
 
-            return <HourBox hour={hour} now={hour === zonedDate.hour} key={i} />;
+            const isCurrent = hour === zonedCurrentDate.hour;
+
+            return <HourBox hour={hour} isCurrent={isCurrent} key={i} />;
           })}
         </View>
       </View>

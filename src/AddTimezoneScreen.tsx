@@ -39,7 +39,7 @@ export const AddTimezoneScreen = ({
           borderRadius: 0,
           borderWidth: 1,
           borderColor: theme.colors.background,
-          height: 32,
+          height: 50,
         }}
       >
         <Text>{item.name}</Text>
